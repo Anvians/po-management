@@ -193,9 +193,25 @@ Full interactive docs available at **http://localhost:8000/docs** (Swagger UI).
 ## 🎨 Frontend Features
 
 - **Dashboard** with live stats (total orders, value, pending, approved)
+
+![Dashboard](image.png)
+
+
 - **Purchase Orders** table with inline status updates
+
+![Purchased](image-1.png)
+
+
 - **Vendors** grid with star ratings
+
+![Vendors](image-2.png)
+
+
 - **Products** grid with AI description button
+
+![Products](image-3.png)
+
+
 - **Create PO Modal** with dynamic "Add Row" — add unlimited product lines, live total calculation including 5% tax
 - **JWT auth** — token stored in `localStorage`, sent as `Authorization: Bearer` header
 - Dark luxury theme with Syne + DM Sans typography

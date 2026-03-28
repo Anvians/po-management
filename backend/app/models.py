@@ -54,7 +54,13 @@ class PurchaseOrder(Base):
     subtotal = Column(Float, default=0.0)
     tax_amount = Column(Float, default=0.0)
     total_amount = Column(Float, default=0.0)
-    status = Column(Enum(POStatus), default=POStatus.DRAFT)
+    status = Column(
+        Enum(
+            POStatus,
+            values_callable=lambda x: [e.value for e in x]
+        ),
+        default=POStatus.DRAFT
+    )    
     notes = Column(Text)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
