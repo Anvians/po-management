@@ -1,19 +1,11 @@
--- ============================================================
--- PO Management System - Database Schema + Seed Data
--- ============================================================
 
--- NOTE:
--- Database is automatically created via POSTGRES_DB
--- So no CREATE DATABASE or \c needed here
-
--- ENUM for PO status
 DO $$ BEGIN
     CREATE TYPE postatus AS ENUM ('draft', 'pending', 'approved', 'rejected', 'completed');
 EXCEPTION
     WHEN duplicate_object THEN null;
 END $$;
 
--- ── Vendors ────────────────────────────────────────────────────────────────
+------------- Vendors ---------------------
 CREATE TABLE IF NOT EXISTS vendors (
     id          SERIAL PRIMARY KEY,
     name        VARCHAR(255) NOT NULL,
@@ -25,7 +17,7 @@ CREATE TABLE IF NOT EXISTS vendors (
     updated_at  TIMESTAMPTZ
 );
 
--- ── Products ───────────────────────────────────────────────────────────────
+-------------- Products -----------------
 CREATE TABLE IF NOT EXISTS products (
     id             SERIAL PRIMARY KEY,
     name           VARCHAR(255) NOT NULL,
@@ -39,7 +31,7 @@ CREATE TABLE IF NOT EXISTS products (
     updated_at     TIMESTAMPTZ
 );
 
--- ── Purchase Orders ────────────────────────────────────────────────────────
+---------- Purchase Orders --------------------
 CREATE TABLE IF NOT EXISTS purchase_orders (
     id           SERIAL PRIMARY KEY,
     reference_no VARCHAR(50) UNIQUE NOT NULL,
@@ -53,7 +45,7 @@ CREATE TABLE IF NOT EXISTS purchase_orders (
     updated_at   TIMESTAMPTZ
 );
 
--- ── Purchase Order Items ───────────────────────────────────────────────────
+-------------- Purchase Order Items --------------------
 CREATE TABLE IF NOT EXISTS purchase_order_items (
     id                  SERIAL PRIMARY KEY,
     purchase_order_id   INTEGER NOT NULL REFERENCES purchase_orders(id) ON DELETE CASCADE,
@@ -69,8 +61,7 @@ CREATE INDEX IF NOT EXISTS idx_po_status ON purchase_orders(status);
 CREATE INDEX IF NOT EXISTS idx_poi_po_id ON purchase_order_items(purchase_order_id);
 CREATE INDEX IF NOT EXISTS idx_poi_product_id ON purchase_order_items(product_id);
 
--- ── Seed Data ──────────────────────────────────────────────────────────────
-
+-------------- Seed Data -----------------------
 INSERT INTO vendors (name, contact, email, phone, rating) VALUES
     ('TechSupply Co.',       'Rahul Sharma',   'rahul@techsupply.in',    '+91-9876543210', 4.5),
     ('GlobalParts Ltd.',     'Priya Mehta',    'priya@globalparts.com',  '+91-9812345678', 4.2),

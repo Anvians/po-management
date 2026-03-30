@@ -11,7 +11,7 @@ from app.routers.auth import verify_token
 router = APIRouter()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
-
+print("GEMINI_API_KEY:", GEMINI_API_KEY)
 
 @router.get("/", response_model=List[ProductResponse])
 def list_products(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
@@ -121,7 +121,7 @@ async def _call_gemini(product_name: str, category: str) -> str:
     try:
         async with httpx.AsyncClient(timeout=15.0) as client:
             response = await client.post(
-                f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={GEMINI_API_KEY}",                json={"contents": [{"parts": [{"text": prompt}]}]},
+                f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key={GEMINI_API_KEY}",                json={"contents": [{"parts": [{"text": prompt}]}]},
             )
             response.raise_for_status()
             data = response.json()

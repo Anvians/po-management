@@ -1,7 +1,3 @@
-/* ─────────────────────────────────────────────────────────────────────────
-   PO Management System — Frontend JS
-   All API calls, DOM manipulation, and business logic lives here.
-───────────────────────────────────────────────────────────────────────── */
 
 const API = 'http://localhost:8000/api';
 let token = localStorage.getItem('po_token');
